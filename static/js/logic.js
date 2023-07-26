@@ -7,17 +7,38 @@ d3.json(geoUrl).then(function(data){
     createFeatures(data.features);
 });
 
+
+// //set marker size
+// function markerSize(magnitude) {
+//     return magnitude * 4;
+//   };
+
+//Create the unique map features to better visualize the GeoJson Earthquake data
 function createFeatures(earthquakeData) {
 
   // Function to apply on each feature & create a popup on each earthquake with location, time 
   function onEachFeature(feature, layer) {
-    layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
+    layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p><p>Magnitude: ${feature.properties.mag}</p><p>Depth: ${feature.geometry.coordinates[2]}</p>`);
   }
 
   // Variable to hold the GeoJson earthquake data & apply the onEachFeature to all the data 
   let earthquakes = L.geoJSON(earthquakeData, {
-    onEachFeature: onEachFeature
-  });
+    onEachFeature: onEachFeature,
+    
+    //Create circular markers for each earthquake point 
+    pointToLayer: function(feature, latlng) {
+            let geoJsonMarkers = {
+                radius: feature.properties.mag * 4,//markerSize(feature.properties.mag),
+                fillColor: "#ff7800",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }
+            return L.circleMarker(latlng, geoJsonMarkers);
+    }
+});
+
 
   // Send our earthquakes layer to the createMap function/
   createMap(earthquakes);
@@ -46,9 +67,7 @@ function createMap(earthquakes) {
   
     // Create Map and assign borderStreet layer & earthquake points to display on default load
     let myMap = L.map("map", {
-      center: [
-        37.09, -95.71
-      ],
+      center: [37.09, -95.71],
       zoom: 5,
       layers: [borderStreet, earthquakes]
     });
@@ -60,3 +79,6 @@ function createMap(earthquakes) {
   }).addTo(myMap);
 
 }
+
+
+
