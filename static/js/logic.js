@@ -8,17 +8,12 @@ d3.json(geoUrl).then(function(data){
 });
 
 
-// //set marker size
-// function markerSize(magnitude) {
-//     return magnitude * 4;
-//   };
-
 //Create the unique map features to better visualize the GeoJson Earthquake data
 function createFeatures(earthquakeData) {
 
   // Function to apply on each feature & create a popup on each earthquake with location, time 
   function onEachFeature(feature, layer) {
-    layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p><p>Magnitude: ${feature.properties.mag}</p><p>Depth: ${feature.geometry.coordinates[2]}</p>`);
+    layer.bindPopup(`<h3>Location: ${feature.properties.place}</h3><hr><p>Date & Time: ${new Date(feature.properties.time)}</p><p>Magnitude: ${feature.properties.mag}</p><p>Depth: ${feature.geometry.coordinates[2]}</p>`);
   }
 
   // Variable to hold the GeoJson earthquake data & apply the onEachFeature to all the data 
@@ -31,32 +26,32 @@ function createFeatures(earthquakeData) {
       // If/Else to define color of markers by Earthquake depth
       let color = "";
       if (feature.geometry.coordinates[2] > 90) {
-        color = "#FF0000";
+        color = "#FF0000"; // red
       }
       else if (feature.geometry.coordinates[2] > 70) {
-        color = "#FFA500";
+        color = "#FFA500"; // orange
       }
       else if (feature.geometry.coordinates[2] > 50) {
-        color = "#FFCC99";
+        color = "#FFCC99"; // light orange
       }
         else if (feature.geometry.coordinates[2] > 30) {
-          color = "#FFFF00";
+          color = "#FFFF00"; // yellow
         }
         else if (feature.geometry.coordinates[2] > 10) {
-          color = "#FFFF99";
+          color = "#FFFF99"; // light yellow
       }
       else {
-        color =  "#90EE90";
+        color =  "#90EE90"; // light green 
       }
 
             // Stylization of circle markers 
             let geoJsonMarkers = {
-                radius: feature.properties.mag * 4,//markerSize(feature.properties.mag),
-                fillColor: color,//"#ff7800",
+                radius: feature.properties.mag * 4,
+                fillColor: color,
                 color: "#000", 
                 weight: 1,
                 opacity: 1,
-                fillOpacity: 1//0.8
+                fillOpacity: 1
             }
     return L.circleMarker(latlng, geoJsonMarkers);
     }
