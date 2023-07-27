@@ -8,3 +8,29 @@ body,
 html {
   height: 100%;
 }
+
+/* Legend Styling */
+.legend {
+  line-height: 18px;
+  color: #555555fb;
+  background-color: antiquewhite;
+  padding: 10px;
+  position: relative;
+}
+
+.legend::before {
+  content: "Depth (km)"; 
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px; 
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 10px;
+  opacity: 1;
+  
+}
+
