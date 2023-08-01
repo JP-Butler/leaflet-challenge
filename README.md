@@ -9,9 +9,9 @@ In this challenge, I am tasked with helping The USGS to build a new set of tools
 ## Table of Contents
 
 - [About & Process](#about--process)
-- [Analysis](analysis)
+- [Analysis](#analysis)
 - [Getting Started & Installing](#getting-started--installing)
-- [Resources](resources)
+- [Resources](#resources)
 - [Contributing](#contributing)
 
 ## About & Process
