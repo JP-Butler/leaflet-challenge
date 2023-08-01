@@ -98,8 +98,7 @@ function createMap(earthquakes) {
 
 
 
-  //legend
-
+  // Create a legend to show the color scale for earthquake depth in km
   var legend = L.control({position: 'bottomright'});
 
   legend.onAdd = function (myMap) {
